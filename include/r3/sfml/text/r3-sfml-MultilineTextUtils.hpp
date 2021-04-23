@@ -1,7 +1,7 @@
 
-#include "r3-sfml-FontFamily.hpp"
 #include <limits>
 #include <string>
+#include <r3/sfml/text/r3-sfml-FontFamily.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace r3 {
@@ -14,7 +14,7 @@ namespace r3 {
 			RIGHT,
 		} TextAlignment;
 
-		typedef struct SfmlUtils_MultilineTextDefn {
+		typedef struct SfmlUtils_TypesettingDefn {
 			const FontFamily* fontFamily;
 
 			unsigned int characterSize = 30;
@@ -24,18 +24,18 @@ namespace r3 {
 			sf::Color fillColor = sf::Color::White;
 			sf::Color outlineColor = sf::Color::Black;
 			float outlineThickness = 0.0f;
+			TextAlignment alignment = TextAlignment::LEFT;
+		} TypesettingDefn;
+
+		typedef struct SfmlUtils_MultilineTextDefn {
+			TypesettingDefn typesettingDefn;
 
 			std::wstring string;
 
 			sf::Vector2f position;
 			sf::Vector2f scale = sf::Vector2f(1.0f, 1.0f);
 			float rotationDegrees = 0.0f;
-			TextAlignment alignment = TextAlignment::LEFT;
 			float maxLineWidth = std::numeric_limits<float>::max();
-
-			struct SfmlUtils_MultilineTextDefn(const FontFamily& fontFamily) {
-				this->fontFamily = &fontFamily;
-			}
 		} MultilineTextDefn;
 
 		namespace MultilineTextUtils {
