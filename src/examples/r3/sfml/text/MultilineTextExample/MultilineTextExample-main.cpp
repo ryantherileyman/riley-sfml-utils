@@ -1,6 +1,4 @@
 
-#include <iostream>
-
 #include <chrono>
 #include <thread>
 #include <SFML/Graphics.hpp>
@@ -15,7 +13,7 @@ int main() {
 
 	sf::RenderWindow window(sf::VideoMode(800, 450), "Riley SfmlTextUtils -- FontFamilyExample");
 
-	float currMaxLineWidth = 200.0f;
+	float currMaxLineWidth = 300.0f;
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -33,14 +31,14 @@ int main() {
 			textDefn.typesettingDefn.characterSize = 12;
 			textDefn.position = sf::Vector2f(20.0f, 20.0f);
 			textDefn.maxLineWidth = currMaxLineWidth;
-			textDefn.string = L"This is some example text that we want to wrap.  It should totally wrap at least once, dude!\nA new line goes here no matter what.\n\nOr two new lines.";
+			textDefn.string = L"This is some example text that we want to wrap. \t\t\t\t It should totally wrap at least once, dude!\nA new line goes here no matter what.\n\nOr two new lines.";
 
 			sf::Text text = r3::sfml::MultilineTextUtils::buildText(textDefn);
 			window.draw(text);
 
 			window.display();
 
-			std::this_thread::sleep_for(std::chrono::microseconds(100000));
+			std::this_thread::sleep_for(std::chrono::microseconds(10));
 		}
 	}
 

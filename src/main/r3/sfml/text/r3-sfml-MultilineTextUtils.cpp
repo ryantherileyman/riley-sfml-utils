@@ -11,6 +11,9 @@ namespace r3 {
 
 		namespace MultilineTextUtils {
 
+			const wchar_t SFML_TEXT_NEWLINE = L'\n';
+			const wchar_t* SFML_TEXT_WHITESPACE_CHAR_SET = L" \t";
+
 			sf::Text buildText(const MultilineTextDefn& multilineTextDefn) {
 				sf::Text result = multilineTextDefn.typesettingDefn.fontFamily->createTextWithStyle(multilineTextDefn.typesettingDefn.style);
 				result.setCharacterSize(multilineTextDefn.typesettingDefn.characterSize);
@@ -20,7 +23,7 @@ namespace r3 {
 				result.setOutlineColor(multilineTextDefn.typesettingDefn.outlineColor);
 				result.setOutlineThickness(multilineTextDefn.typesettingDefn.outlineThickness);
 
-				std::vector<std::wstring> sourceLineList = r3::StringUtils::split(multilineTextDefn.string, L'\n');
+				std::vector<std::wstring> sourceLineList = r3::StringUtils::split(multilineTextDefn.string, SFML_TEXT_NEWLINE);
 
 				std::vector<std::wstring> outputLineList;
 
@@ -39,7 +42,7 @@ namespace r3 {
 
 						bool doneFlag = false;
 						while (!doneFlag) {
-							size_t nextSpacePos = currLine.find(L' ', nextWordStartPos);
+							size_t nextSpacePos = r3::StringUtils::findNextPosInCharSet(currLine, nextWordStartPos, SFML_TEXT_WHITESPACE_CHAR_SET);
 
 							if (nextSpacePos == std::wstring::npos) {
 								nextSpacePos = currLine.size();
@@ -51,7 +54,7 @@ namespace r3 {
 
 							if (lookAheadTextWidth > multilineTextDefn.maxLineWidth) {
 								if (currPhrase.empty()) {
-									nextWordStartPos = nextSpacePos + 1;
+									nextWordStartPos = r3::StringUtils::findNextPosNotInCharSet(currLine, nextSpacePos, SFML_TEXT_WHITESPACE_CHAR_SET);
 								}
 								else {
 									outputLineList.push_back(currPhrase);
@@ -64,7 +67,7 @@ namespace r3 {
 							else {
 								currPhrase = currLine.substr(currPhraseStartPos, nextSpacePos - currPhraseStartPos);
 
-								nextWordStartPos = nextSpacePos + 1;
+								nextWordStartPos = r3::StringUtils::findNextPosNotInCharSet(currLine, nextSpacePos, SFML_TEXT_WHITESPACE_CHAR_SET);
 							}
 
 							doneFlag = (nextWordStartPos > currLine.size());
@@ -74,7 +77,7 @@ namespace r3 {
 					}
 				}
 				
-				result.setString(r3::StringUtils::join(outputLineList, L'\n'));
+				result.setString(r3::StringUtils::join(outputLineList, SFML_TEXT_NEWLINE));
 
 				// TODO: actually, need to return an array of Text objects, in order to handle alignment issues!
 
