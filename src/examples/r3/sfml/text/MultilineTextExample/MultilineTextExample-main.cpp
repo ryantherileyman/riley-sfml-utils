@@ -1,8 +1,17 @@
 
 #include <chrono>
 #include <thread>
+#include <vector>
 #include <SFML/Graphics.hpp>
-#include <r3/sfml/text/r3-sfml-MultilineTextUtils.hpp>
+#include <r3/sfml/text/r3-sfml-FontFamily.hpp>
+#include <r3/sfml/text/r3-sfml-MultilineTypesettingBlock.hpp>
+
+void drawBlock(sf::RenderTarget& target, const r3::sfml::MultilineTypesettingBlock& block, const sf::String& string) {
+	std::vector<sf::Text> textList = block.createTextList(string);
+	for (const auto& currText : textList) {
+		target.draw(currText);
+	}
+}
 
 int main() {
 	r3::sfml::LoadFontFamilyDefn loadFontFamilyDefn;
@@ -11,7 +20,10 @@ int main() {
 	r3::sfml::FontFamily fontFamily;
 	fontFamily.load(loadFontFamilyDefn);
 
-	sf::RenderWindow window(sf::VideoMode(800, 450), "Riley SfmlTextUtils -- FontFamilyExample");
+	r3::sfml::TypesettingDefn typesettingDefn;
+	typesettingDefn.characterSize = 12;
+
+	sf::RenderWindow window(sf::VideoMode(800, 450), "Riley SfmlTextUtils -- MultilineTextExample");
 
 	float currMaxLineWidth = 300.0f;
 
@@ -26,15 +38,29 @@ int main() {
 		if (window.isOpen()) {
 			window.clear(sf::Color(64, 64, 64, 255));
 
-			r3::sfml::MultilineTextDefn textDefn;
-			textDefn.typesettingDefn.fontFamily = &fontFamily;
-			textDefn.typesettingDefn.characterSize = 12;
-			textDefn.position = sf::Vector2f(20.0f, 20.0f);
-			textDefn.maxLineWidth = currMaxLineWidth;
-			textDefn.string = L"This is some example text that we want to wrap. \t\t\t\t It should totally wrap at least once, dude!\nA new line goes here no matter what.\n\nOr two new lines.";
+			sf::String string = "This is some example text that we want to wrap.  It should wrap at least once, I should think!\nA new line goes here no matter what.\n\nOr two new lines.";
 
-			sf::Text text = r3::sfml::MultilineTextUtils::buildText(textDefn);
-			window.draw(text);
+			std::vector<sf::Text> textList;
+
+			r3::sfml::MultilineTypesettingBlock leftBlock(fontFamily);
+			leftBlock.updateTypesetting(typesettingDefn);
+			leftBlock.setPosition(sf::Vector2f(20.0f, 100.0f));
+			leftBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, leftBlock, string);
+
+			r3::sfml::MultilineTypesettingBlock centerBlock(fontFamily);
+			centerBlock.updateTypesetting(typesettingDefn);
+			centerBlock.setTextAlignment(r3::sfml::TextAlignment::CENTER);
+			centerBlock.setPosition(sf::Vector2f(400.0f, 100.0f));
+			centerBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, centerBlock, string);
+
+			r3::sfml::MultilineTypesettingBlock rightBlock(fontFamily);
+			rightBlock.updateTypesetting(typesettingDefn);
+			rightBlock.setTextAlignment(r3::sfml::TextAlignment::RIGHT);
+			rightBlock.setPosition(sf::Vector2f(780.0f, 100.0f));
+			rightBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, rightBlock, string);
 
 			window.display();
 

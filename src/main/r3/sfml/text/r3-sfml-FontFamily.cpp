@@ -131,6 +131,17 @@ namespace r3 {
 			return result;
 		}
 
+		sf::Text FontFamily::createTextWithTypesetting(const TypesettingDefn& typesetting) const {
+			sf::Text result = this->createTextWithStyle(typesetting.style);
+			result.setCharacterSize(typesetting.characterSize);
+			result.setLineSpacing(typesetting.lineSpacing);
+			result.setLetterSpacing(typesetting.letterSpacing);
+			result.setFillColor(typesetting.fillColor);
+			result.setOutlineColor(typesetting.outlineColor);
+			result.setOutlineThickness(typesetting.outlineThickness);
+			return result;
+		}
+
 	}
 
 }

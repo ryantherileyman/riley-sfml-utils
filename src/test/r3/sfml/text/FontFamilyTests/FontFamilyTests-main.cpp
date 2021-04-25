@@ -1,6 +1,7 @@
 
 #include <assert.h>
 #include <iostream>
+#include <math.h>
 #include <r3/sfml/text/r3-sfml-FontFamily.hpp>
 
 using namespace r3::sfml;
@@ -193,6 +194,31 @@ bool testCreateTextWithStyle_WithAll_Style(sf::Uint32 inputStyle, sf::Uint32 exp
 	return result;
 }
 
+bool testCreateTextWithTypesetting() {
+	FontFamily fontFamily = createWithAllFontFamily();
+
+	TypesettingDefn typesetting;
+	typesetting.characterSize = 16;
+	typesetting.lineSpacing = 1.2f;
+	typesetting.letterSpacing = 0.9f;
+	typesetting.style = sf::Text::Bold | sf::Text::Underlined;
+	typesetting.fillColor = sf::Color::Green;
+	typesetting.outlineColor = sf::Color::Blue;
+	typesetting.outlineThickness = 2.0f;
+
+	sf::Text text = fontFamily.createTextWithTypesetting(typesetting);
+
+	bool result =
+		(text.getCharacterSize() == 16) &&
+		(roundf(text.getLineSpacing() * 10) == 12) &&
+		(roundf(text.getLetterSpacing() * 10) == 9) &&
+		(text.getStyle() == sf::Text::Underlined) &&
+		(text.getFillColor() == sf::Color::Green) &&
+		(text.getOutlineColor() == sf::Color::Blue) &&
+		(roundf(text.getOutlineThickness()) == 2);
+	return result;
+}
+
 int main() {
 	const sf::Uint32 boldItalicStyle = sf::Text::Bold | sf::Text::Italic;
 	const sf::Uint32 everyStyle = sf::Text::Bold | sf::Text::Italic | sf::Text::StrikeThrough | sf::Text::Underlined;
@@ -236,6 +262,8 @@ int main() {
 	assert(testCreateTextWithStyle_WithAll_Style(sf::Text::Italic, sf::Text::Regular));
 	assert(testCreateTextWithStyle_WithAll_Style(boldItalicStyle, sf::Text::Regular));
 	assert(testCreateTextWithStyle_WithAll_Style(everyStyle, everyStyle - boldItalicStyle));
+
+	assert(testCreateTextWithTypesetting());
 
 	std::cout << "All tests passed!";
 	return 0;

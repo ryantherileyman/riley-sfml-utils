@@ -9,6 +9,8 @@ namespace r3 {
 
 			float resolveTextWidth(const sf::Text& text);
 
+			sf::Vector2f resolveLineHeight(const sf::Text& text);
+
 		}
 
 	}

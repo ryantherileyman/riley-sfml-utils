@@ -8,7 +8,7 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 set(R3_SFML_UTILS_SOURCES
 	r3-sfml-TextUtils.cpp
 	r3-sfml-FontFamily.cpp
-	r3-sfml-MultilineTextUtils.cpp
+	r3-sfml-MultilineTypesettingBlock.cpp
 )
 
 add_library(
