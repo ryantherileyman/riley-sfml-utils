@@ -198,6 +198,12 @@ namespace r3 {
 			sf::Vector2f lineHeight = r3::sfml::TextUtils::resolveLineHeight(alignmentText);
 
 			sf::Vector2f currAlignmentPosition = this->textBlockRegionDefn.position;
+			if (this->textBlockRegionDefn.verticalAlignment == VerticalAlignment::MIDDLE) {
+				currAlignmentPosition -= ((lineHeight * (float)outputLineList.size()) / 2.0f);
+			}
+			else if ( this->textBlockRegionDefn.verticalAlignment == VerticalAlignment::BOTTOM ) {
+				currAlignmentPosition -= (lineHeight * (float)outputLineList.size());
+			}
 
 			std::vector<sf::Text> result;
 			for (const auto& currOutputLine : outputLineList) {
@@ -208,14 +214,11 @@ namespace r3 {
 				sf::Vector2f lineVector = endLinePos - startLinePos;
 
 				sf::Vector2f linePosition = currAlignmentPosition;
-				sf::Vector2f lineOrigin;
 				if (this->textBlockRegionDefn.textAlignment == TextAlignment::CENTER) {
 					linePosition = linePosition - (lineVector / 2.0f);
-					lineOrigin = lineVector / 2.0f;
 				}
 				else if (this->textBlockRegionDefn.textAlignment == TextAlignment::RIGHT) {
 					linePosition = linePosition - lineVector;
-					lineOrigin = lineVector;
 				}
 
 				if (this->roundingCorrectionFlag) {

@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include <chrono>
 #include <thread>
 #include <vector>
@@ -7,7 +9,14 @@
 #include <r3/sfml/text/r3-sfml-MultilineTypesettingBlock.hpp>
 
 void drawBlock(sf::RenderTarget& target, const r3::sfml::MultilineTypesettingBlock& block, const sf::String& string) {
+	sf::CircleShape positionShape;
+	positionShape.setPosition(block.getPosition() - sf::Vector2f(5.0f, 5.0f));
+	positionShape.setRadius(5.0f);
+	positionShape.setFillColor(sf::Color::Black);
+	target.draw(positionShape);
+
 	std::vector<sf::Text> textList = block.createTextList(string);
+
 	for (const auto& currText : textList) {
 		target.draw(currText);
 	}
@@ -42,25 +51,72 @@ int main() {
 
 			std::vector<sf::Text> textList;
 
-			r3::sfml::MultilineTypesettingBlock leftBlock(fontFamily);
-			leftBlock.updateTypesetting(typesettingDefn);
-			leftBlock.setPosition(sf::Vector2f(20.0f, 100.0f));
-			leftBlock.setMaxLineWidth(200.0f);
-			drawBlock(window, leftBlock, string);
+			r3::sfml::MultilineTypesettingBlock topLeftBlock(fontFamily);
+			topLeftBlock.updateTypesetting(typesettingDefn);
+			topLeftBlock.setVerticalAlignment(r3::sfml::VerticalAlignment::TOP);
+			topLeftBlock.setPosition(sf::Vector2f(20.0f, 20.0f));
+			topLeftBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, topLeftBlock, string);
 
-			r3::sfml::MultilineTypesettingBlock centerBlock(fontFamily);
-			centerBlock.updateTypesetting(typesettingDefn);
-			centerBlock.setTextAlignment(r3::sfml::TextAlignment::CENTER);
-			centerBlock.setPosition(sf::Vector2f(400.0f, 100.0f));
-			centerBlock.setMaxLineWidth(200.0f);
-			drawBlock(window, centerBlock, string);
+			r3::sfml::MultilineTypesettingBlock middleLeftBlock(fontFamily);
+			middleLeftBlock.updateTypesetting(typesettingDefn);
+			middleLeftBlock.setVerticalAlignment(r3::sfml::VerticalAlignment::MIDDLE);
+			middleLeftBlock.setPosition(sf::Vector2f(20.0f, 225.0f));
+			middleLeftBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, middleLeftBlock, string);
 
-			r3::sfml::MultilineTypesettingBlock rightBlock(fontFamily);
-			rightBlock.updateTypesetting(typesettingDefn);
-			rightBlock.setTextAlignment(r3::sfml::TextAlignment::RIGHT);
-			rightBlock.setPosition(sf::Vector2f(780.0f, 100.0f));
-			rightBlock.setMaxLineWidth(200.0f);
-			drawBlock(window, rightBlock, string);
+			r3::sfml::MultilineTypesettingBlock bottomLeftBlock(fontFamily);
+			bottomLeftBlock.updateTypesetting(typesettingDefn);
+			bottomLeftBlock.setVerticalAlignment(r3::sfml::VerticalAlignment::BOTTOM);
+			bottomLeftBlock.setPosition(sf::Vector2f(20.0f, 430.0f));
+			bottomLeftBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, bottomLeftBlock, string);
+
+			r3::sfml::MultilineTypesettingBlock topCenterBlock(fontFamily);
+			topCenterBlock.updateTypesetting(typesettingDefn);
+			topCenterBlock.setTextAlignment(r3::sfml::TextAlignment::CENTER);
+			topCenterBlock.setPosition(sf::Vector2f(400.0f, 20.0f));
+			topCenterBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, topCenterBlock, string);
+
+			r3::sfml::MultilineTypesettingBlock middleCenterBlock(fontFamily);
+			topCenterBlock.updateTypesetting(typesettingDefn);
+			topCenterBlock.setTextAlignment(r3::sfml::TextAlignment::CENTER);
+			topCenterBlock.setVerticalAlignment(r3::sfml::VerticalAlignment::MIDDLE);
+			topCenterBlock.setPosition(sf::Vector2f(400.0f, 225.0f));
+			topCenterBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, topCenterBlock, string);
+
+			r3::sfml::MultilineTypesettingBlock bottomCenterBlock(fontFamily);
+			topCenterBlock.updateTypesetting(typesettingDefn);
+			topCenterBlock.setTextAlignment(r3::sfml::TextAlignment::CENTER);
+			topCenterBlock.setVerticalAlignment(r3::sfml::VerticalAlignment::BOTTOM);
+			topCenterBlock.setPosition(sf::Vector2f(400.0f, 430.0f));
+			topCenterBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, topCenterBlock, string);
+
+			r3::sfml::MultilineTypesettingBlock topRightBlock(fontFamily);
+			topRightBlock.updateTypesetting(typesettingDefn);
+			topRightBlock.setTextAlignment(r3::sfml::TextAlignment::RIGHT);
+			topRightBlock.setPosition(sf::Vector2f(780.0f, 20.0f));
+			topRightBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, topRightBlock, string);
+
+			r3::sfml::MultilineTypesettingBlock middleRightBlock(fontFamily);
+			middleRightBlock.updateTypesetting(typesettingDefn);
+			middleRightBlock.setTextAlignment(r3::sfml::TextAlignment::RIGHT);
+			middleRightBlock.setVerticalAlignment(r3::sfml::VerticalAlignment::MIDDLE);
+			middleRightBlock.setPosition(sf::Vector2f(780.0f, 225.0f));
+			middleRightBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, middleRightBlock, string);
+
+			r3::sfml::MultilineTypesettingBlock bottomRightBlock(fontFamily);
+			bottomRightBlock.updateTypesetting(typesettingDefn);
+			bottomRightBlock.setTextAlignment(r3::sfml::TextAlignment::RIGHT);
+			bottomRightBlock.setVerticalAlignment(r3::sfml::VerticalAlignment::BOTTOM);
+			bottomRightBlock.setPosition(sf::Vector2f(780.0f, 430.0f));
+			bottomRightBlock.setMaxLineWidth(200.0f);
+			drawBlock(window, bottomRightBlock, string);
 
 			window.display();
 
