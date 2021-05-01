@@ -7,7 +7,7 @@ namespace r3 {
 
 		namespace TextUtils {
 
-			float resolveTextWidth(const sf::Text& text);
+			sf::Vector2f resolveTextWidth(const sf::Text& text);
 
 			sf::Vector2f resolveLineHeight(const sf::Text& text);
 

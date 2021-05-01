@@ -7,8 +7,8 @@ namespace r3 {
 
 		namespace TextUtils {
 
-			float resolveTextWidth(const sf::Text& text) {
-				float result = text.findCharacterPos(text.getString().getSize()).x - text.findCharacterPos(0).x;
+			sf::Vector2f resolveTextWidth(const sf::Text& text) {
+				sf::Vector2f result = text.findCharacterPos(text.getString().getSize()) - text.findCharacterPos(0);
 				return result;
 			}
 

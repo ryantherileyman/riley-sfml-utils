@@ -146,7 +146,7 @@ namespace r3 {
 			for (const auto& currSourceLine : sourceLineList) {
 				typesettingText.setString(currSourceLine);
 
-				float currLineWidth = r3::sfml::TextUtils::resolveTextWidth(typesettingText);
+				float currLineWidth = r3::sfml::TextUtils::resolveTextWidth(typesettingText).x;
 				if (currLineWidth <= this->textBlockRegionDefn.maxLineWidth) {
 					outputLineList.push_back(currSourceLine);
 				}
@@ -166,7 +166,7 @@ namespace r3 {
 
 						lookAheadPhrase = currSourceLine.substr(currPhraseStartPos, nextSpacePos - currPhraseStartPos);
 						typesettingText.setString(lookAheadPhrase);
-						float lookAheadTextWidth = r3::sfml::TextUtils::resolveTextWidth(typesettingText);
+						float lookAheadTextWidth = r3::sfml::TextUtils::resolveTextWidth(typesettingText).x;
 
 						if (lookAheadTextWidth > this->textBlockRegionDefn.maxLineWidth) {
 							if (currPhrase.empty()) {
