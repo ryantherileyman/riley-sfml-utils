@@ -4,6 +4,42 @@
 #include <math.h>
 #include <r3/sfml/text/r3-sfml-TextUtils.hpp>
 
+bool testResolveTextWidth_SingleLine() {
+	sf::Font font;
+	font.loadFromFile("OpenSans-Regular.ttf");
+
+	sf::Text text;
+	text.setFont(font);
+	text.setString("single line");
+
+	sf::Vector2f textWidth = r3::sfml::TextUtils::resolveTextWidth(text);
+
+	bool result =
+		(textWidth.x > 0.0f) &&
+		(textWidth.y == 0.0f);
+	return result;
+}
+
+bool testResolveTextWidth_MultiLine() {
+	sf::Font font;
+	font.loadFromFile("OpenSans-Regular.ttf");
+
+	sf::Text text;
+	text.setFont(font);
+
+	text.setString("word");
+	sf::Vector2f singleLineTextWidth = r3::sfml::TextUtils::resolveTextWidth(text);
+
+	text.setString("word\nword");
+	sf::Vector2f multiLineTextWidth = r3::sfml::TextUtils::resolveTextWidth(text);
+
+	bool result =
+		(multiLineTextWidth.x > 0.0f) &&
+		(multiLineTextWidth.x == singleLineTextWidth.x) &&
+		(multiLineTextWidth.y > 0.0f);
+	return result;
+}
+
 bool testResolveLineHeight() {
 	sf::Font font;
 	font.loadFromFile("OpenSans-Regular.ttf");
@@ -44,6 +80,9 @@ bool testResolveLineHeight_Rotated() {
 }
 
 int main() {
+	assert(testResolveTextWidth_SingleLine());
+	assert(testResolveTextWidth_MultiLine());
+
 	assert(testResolveLineHeight());
 	assert(testResolveLineHeight_Rotated());
 
