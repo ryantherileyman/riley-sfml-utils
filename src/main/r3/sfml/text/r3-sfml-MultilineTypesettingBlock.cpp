@@ -136,7 +136,7 @@ namespace r3 {
 			this->roundingCorrectionFlag = roundingCorrection;
 		}
 
-		std::vector<sf::Text> MultilineTypesettingBlock::createTextList(const sf::String& string) const {
+		std::vector<sf::String> MultilineTypesettingBlock::splitIntoLines(const sf::String& string) const {
 			sf::Text typesettingText = this->fontFamily->createTextWithTypesetting(this->typesettingDefn);
 			typesettingText.setScale(this->textBlockRegionDefn.scale);
 
@@ -192,6 +192,14 @@ namespace r3 {
 				}
 			}
 
+			std::vector<sf::String> result;
+			for (const auto& currOutputLine : outputLineList) {
+				result.push_back(sf::String(currOutputLine));
+			}
+			return result;
+		}
+
+		std::vector<sf::Text> MultilineTypesettingBlock::createAlignedTextList(const std::vector<sf::String>& stringList) const {
 			sf::Text alignmentText = this->fontFamily->createTextWithTypesetting(this->typesettingDefn);
 			alignmentText.setScale(this->textBlockRegionDefn.scale);
 			alignmentText.setRotation(this->textBlockRegionDefn.rotationDegrees);
@@ -199,18 +207,18 @@ namespace r3 {
 
 			sf::Vector2f currAlignmentPosition = this->textBlockRegionDefn.position;
 			if (this->textBlockRegionDefn.verticalAlignment == VerticalAlignment::MIDDLE) {
-				currAlignmentPosition -= ((lineHeight * (float)outputLineList.size()) / 2.0f);
+				currAlignmentPosition -= ((lineHeight * (float)stringList.size()) / 2.0f);
 			}
-			else if ( this->textBlockRegionDefn.verticalAlignment == VerticalAlignment::BOTTOM ) {
-				currAlignmentPosition -= (lineHeight * (float)outputLineList.size());
+			else if (this->textBlockRegionDefn.verticalAlignment == VerticalAlignment::BOTTOM) {
+				currAlignmentPosition -= (lineHeight * (float)stringList.size());
 			}
 
 			std::vector<sf::Text> result;
-			for (const auto& currOutputLine : outputLineList) {
+			for (const auto& currOutputLine : stringList) {
 				alignmentText.setString(currOutputLine);
 
 				sf::Vector2f startLinePos = alignmentText.findCharacterPos(0);
-				sf::Vector2f endLinePos = alignmentText.findCharacterPos(currOutputLine.size());
+				sf::Vector2f endLinePos = alignmentText.findCharacterPos(currOutputLine.getSize());
 				sf::Vector2f lineVector = endLinePos - startLinePos;
 
 				sf::Vector2f linePosition = currAlignmentPosition;

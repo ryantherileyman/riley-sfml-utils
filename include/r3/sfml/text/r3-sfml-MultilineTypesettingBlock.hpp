@@ -68,7 +68,8 @@ namespace r3 {
 			void setRoundingCorrection(bool roundingCorrection);
 
 		public:
-			std::vector<sf::Text> createTextList(const sf::String& string) const;
+			std::vector<sf::String> splitIntoLines(const sf::String& string) const;
+			std::vector<sf::Text> createAlignedTextList(const std::vector<sf::String>& stringList) const;
 
 		};
 

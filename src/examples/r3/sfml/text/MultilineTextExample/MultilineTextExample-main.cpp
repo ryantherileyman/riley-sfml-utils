@@ -13,7 +13,8 @@ void drawBlock(sf::RenderTarget& target, const r3::sfml::MultilineTypesettingBlo
 	positionShape.setFillColor(sf::Color::Black);
 	target.draw(positionShape);
 
-	std::vector<sf::Text> textList = block.createTextList(string);
+	std::vector<sf::String> lineList = block.splitIntoLines(string);
+	std::vector<sf::Text> textList = block.createAlignedTextList(lineList);
 
 	for (const auto& currText : textList) {
 		target.draw(currText);
