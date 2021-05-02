@@ -1,5 +1,3 @@
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED true)
-
-add_subdirectory(text)
+add_subdirectory(text/FontFamilyExample)
+add_subdirectory(text/MultilineTextExample)

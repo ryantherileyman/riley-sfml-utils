@@ -30,7 +30,7 @@ int main() {
 			sf::Text descriptionText = fontFamily.createTextWithStyle(sf::Text::Regular);
 			descriptionText.setCharacterSize(24);
 			descriptionText.setString(L"SFML-rendered text is on the left, natural text is on the right");
-			float descriptionTextWidth = r3::sfml::TextUtils::resolveTextWidth(descriptionText);
+			float descriptionTextWidth = r3::sfml::TextUtils::resolveTextWidth(descriptionText).x;
 			descriptionText.setPosition(400.0f - descriptionTextWidth / 2.0f, 10.0f);
 			window.draw(descriptionText);
 
@@ -89,14 +89,14 @@ int main() {
 			comboText.setCharacterSize(16);
 			comboText.setStyle(sf::Text::Italic);
 			comboText.setString(L"OpenSans Natural Bold, SFML Italic");
-			float comboTextWidth = r3::sfml::TextUtils::resolveTextWidth(comboText);
+			float comboTextWidth = r3::sfml::TextUtils::resolveTextWidth(comboText).x;
 			comboText.setPosition(400.0f - comboTextWidth / 2.0f, 260.0f);
 			window.draw(comboText);
 
 			sf::Text licenseText = fontFamily.createTextWithStyle(sf::Text::Regular);
 			licenseText.setCharacterSize(12);
 			licenseText.setString(L"OpenSans (by Ascender Fonts) is available on fontsquirrel.com under the Apache 2.0 License");
-			float licenseTextWidth = r3::sfml::TextUtils::resolveTextWidth(licenseText);
+			float licenseTextWidth = r3::sfml::TextUtils::resolveTextWidth(licenseText).x;
 			licenseText.setPosition(400.0f - licenseTextWidth / 2.0f, 310.0f);
 			window.draw(licenseText);
 

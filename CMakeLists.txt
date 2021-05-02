@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.19)
 
 project(RileySfmlUtils VERSION 1.0)
 
+add_subdirectory(dependencies/riley-cpp-utils)
 add_subdirectory(dependencies/sfml)
 
 option(RILEY_SFML_UTILS_WITH_EXAMPLES "Build RileySfmlUtils example programs" ON)

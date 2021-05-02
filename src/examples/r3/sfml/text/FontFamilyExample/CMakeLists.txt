@@ -1,4 +1,7 @@
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
+
 add_executable(
 	FontFamilyExample
 	FontFamilyExample-main.cpp

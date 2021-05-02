@@ -1,7 +1,10 @@
 
+#include "r3-sfml-typesetting-defn.hpp"
 #include <optional>
 #include <string>
 #include <SFML/Graphics.hpp>
+
+#pragma once
 
 namespace r3 {
 
@@ -49,6 +52,7 @@ namespace r3 {
 
 		public:
 			sf::Text createTextWithStyle(sf::Uint32 style) const;
+			sf::Text createTextWithTypesetting(const TypesettingDefn& typesetting) const;
 
 		};
 
