@@ -1,0 +1,12 @@
+
+RileySfmlUtils is maintained by Ryan Robinson, known online as "Riley Entertainment", and is available under the permissive MIT License.
+See the file "RileyCppUtils-mit-license.txt" for the official license text.
+
+Origin on GitHub:
+https://github.com/ryantherileyman/riley-sfml-utils
+
+This library provides utility functions for SFML (Simple and Fast Multimedia Library):
+https://www.sfml-dev.org/index.php
+
+The OpenSans font (by Ascender Fonts) is available on the Font Squirrel website, under the Apache License:
+https://www.fontsquirrel.com/fonts/open-sans
