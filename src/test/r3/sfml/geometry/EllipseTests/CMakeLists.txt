@@ -12,4 +12,4 @@ target_link_libraries(
 	r3-SfmlGeometryUtils-lib
 )
 
-add_test(Ellipse COMMAND EllipseTests)
+add_test(NAME Ellipse COMMAND EllipseTests)
