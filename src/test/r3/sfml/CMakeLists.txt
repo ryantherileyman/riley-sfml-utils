@@ -1,4 +1,5 @@
 
+add_subdirectory(geometry/EllipseTests)
 add_subdirectory(text/TextUtilsTests)
 add_subdirectory(text/SfmlTextDiscoveryTests)
 add_subdirectory(text/FontFamilyTests)
