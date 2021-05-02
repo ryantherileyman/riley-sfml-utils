@@ -3,6 +3,11 @@ Provides various features for the SFML library (Simple and Fast Multimedia Libra
 
 [SFML](https://www.sfml-dev.org/index.php) is distributed under the zlib/png license.
 
+## r3-SfmlGeometryUtils
+The r3-SfmlGeometryUtils library contains general-purpose geometry features that don't exist in the core SFML library.
+
+As of version 1.1, this only includes a basic `Ellipse` class (similar to the SFML Rect class).
+
 ## r3-SfmlTextUtils
 The r3-SfmlTextUtils library contains additional features for rendering large blocks of text in a graphics context.
 
